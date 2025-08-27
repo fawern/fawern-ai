@@ -12,8 +12,10 @@ setup(
     packages=find_packages(),
     install_requires=[
         'groq==0.9.0',
+        'openai>=1.0.0',
         'python-dotenv==1.0.1',
         'setuptools==69.0.3',
+        'PyYAML==6.0.1',
     ],
     license="MIT",
     classifiers=[  

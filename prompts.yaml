@@ -1,42 +1,130 @@
 prompts:
-  generate_code:
-    description: "Generate Python code from a natural language prompt."
-    prompt: |
-      Please generate Python code that is concise, functional, and directly implements the following requirements in English: {details}.
-      Exclude any explanations, comments, or extra text. The code should adhere to Python best practices, ensure readability, and be ready for execution.
+  ChatPython:
+    generate_code:
+      description: "Generate Python code from a natural language prompt."
+      prompt: |
+        Please generate Python code that is concise, functional, and directly implements the following requirements in English: {prompt}.
+        Exclude any explanations, comments, or extra text. The code should adhere to Python best practices, ensure readability, and be ready for execution.
 
-  analyze_code:
-    description: "Perform a comprehensive analysis of Python code."
-    prompt: |
-      Perform a comprehensive analysis of the following Python code, focusing on syntax errors, logical inconsistencies, and potential inefficiencies. Provide actionable suggestions to enhance code quality and performance:
-      {code}
+  CodeAnalyzer:
+    analyze_code:
+      description: "Perform a comprehensive analysis of Python code."
+      prompt: |
+        Perform a comprehensive analysis of the following Python code, focusing on syntax errors, logical inconsistencies, and potential inefficiencies. Provide actionable suggestions to enhance code quality and performance:
+        {code}
 
-  find_syntax_errors:
-    description: "Identify and correct syntax errors in Python code."
-    prompt: |
-      Identify and correct any syntax errors in the following Python code. Provide a revised version of the code with all corrections applied:
-      {code}
+    find_syntax_errors:
+      description: "Identify and correct syntax errors in Python code."
+      prompt: |
+        Identify and correct any syntax errors in the following Python code. Provide a revised version of the code with all corrections applied:
+        {code}
 
-  suggest_optimizations:
-    description: "Suggest optimizations for Python code."
-    prompt: |
-      Evaluate the efficiency of the following Python code and suggest optimizations where applicable. Aim to improve performance, readability, and maintainability:
-      {code}
+    suggest_optimizations:
+      description: "Suggest optimizations for Python code."
+      prompt: |
+        Evaluate the efficiency of the following Python code and suggest optimizations where applicable. Aim to improve performance, readability, and maintainability:
+        {code}
 
-  refactor_code:
-    description: "Refactor Python code for better readability and maintainability."
-    prompt: |
-      Refactor the following Python code to improve readability and maintainability without changing its functionality:
-      {code}
+    refactor_code:
+      description: "Refactor Python code for better readability and maintainability."
+      prompt: |
+        Refactor the following Python code to improve readability and maintainability without changing its functionality:
+        {code}
 
-  check_security_issues:
-    description: "Check Python code for security vulnerabilities."
-    prompt: |
-      Check the following Python code for any security vulnerabilities or potential issues:
-      {code}
+    get_code_explanation:
+      description: "Get detailed explanation of Python code."
+      prompt: |
+        Provide a detailed explanation of the following Python code, including its purpose, functionality, and how it works:
+        {code}
 
-  generate_test_cases:
-    description: "Generate test cases for Python code."
-    prompt: |
-      Generate test cases for the following Python code to ensure it works correctly:
-      {code}
+    fix_code:
+      description: "Fix issues in Python code."
+      prompt: |
+        Identify and fix any issues in the following Python code:
+        {code}
+
+    find_errors:
+      description: "Find errors in Python code."
+      prompt: |
+        Find all errors in the following Python code:
+        {code}
+
+    suggest_improvements:
+      description: "Suggest improvements for Python code."
+      prompt: |
+        Suggest improvements for the following Python code:
+        {code}
+
+    check_security_issues:
+      description: "Check Python code for security vulnerabilities."
+      prompt: |
+        Check the following Python code for any security vulnerabilities or potential issues:
+        {code}
+
+    generate_test_cases:
+      description: "Generate test cases for Python code."
+      prompt: |
+        Generate test cases for the following Python code to ensure it works correctly:
+        {code}
+
+  CodeFormatter:
+    format_code:
+      description: "Format Python code according to PEP 8 standards."
+      prompt: |
+        Format the following Python code according to PEP 8 standards:
+        {code}
+
+  ErrorLogAnalyzer:
+    analyze_errors:
+      description: "Analyze error logs and provide solutions."
+      prompt: |
+        Analyze the following error log and provide solutions:
+        {code}
+
+  CodeReviewer:
+    review_code:
+      description: "Review Python code for best practices and improvements."
+      prompt: |
+        Review the following Python code for best practices and suggest improvements:
+        {code}
+
+  DocumentationGenerator:
+    generate_docstrings:
+      description: "Generate docstrings for Python code."
+      prompt: |
+        Generate comprehensive docstrings for the following Python code:
+        {code}
+
+  ConvertToPython:
+    convert_code:
+      description: "Convert code from other languages to Python."
+      prompt: |
+        Convert the following code to Python:
+        {code}
+
+  CodeVisualizer:
+    visualize_code:
+      description: "Create visual representation of code structure."
+      prompt: |
+        Create a visual representation of the following code structure:
+        {code}
+
+  BugFixer:
+    fix_bugs:
+      description: "Fix bugs in Python code."
+      prompt: |
+        Identify and fix bugs in the following Python code:
+        {code}
+
+  UnitTestGenerator:
+    generate_tests:
+      description: "Generate unit tests for Python code."
+      prompt: |
+        Generate comprehensive unit tests for the following Python code:
+        {code}
+
+  CodeFileNameGenerator:
+    generate_file_name:
+      description: "Generate a meaningful file name based on code content."
+      prompt: |
+        Based on the provided Python code description, generate a simple and contextually appropriate file name as a string. The file name should reflect the main purpose of the code in a straightforward manner, without any file extensions. Here is the input: {code}
