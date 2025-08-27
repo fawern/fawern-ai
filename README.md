@@ -1,6 +1,6 @@
 # fawern
 
-**fawern** is a Python library designed to assist developers with various AI-powered tools for code generation, analysis, refactoring, and more. It utilizes advanced models to provide a wide range of functionalities, from generating Python code based on prompts to analyzing and fixing code, generating documentation, and even converting code from other languages to Python.
+**fawern** is a Python library designed to assist developers with various AI-powered tools for code generation, analysis, refactoring, and more. It utilizes advanced models from multiple providers (Groq, OpenAI, and more) to provide a wide range of functionalities, from generating Python code based on prompts to analyzing and fixing code, generating documentation, and even converting code from other languages to Python.
 
 ## Features
 
@@ -15,6 +15,13 @@
 - **BugFixer:** Automatically identify and fix bugs in Python code.
 - **UnitTestGenerator:** Generate unit tests for Python code to ensure correctness.
 
+## AI Provider Support
+
+fawern supports multiple AI providers:
+- **Groq** (default) - Fast inference with models like llama-3.1-70b-versatile
+- **OpenAI** - GPT models like gpt-4, gpt-3.5-turbo
+- **Extensible** - Easy to add new providers
+
 ## PyPi Package Link
 
 Please check the package on PyPi to get the latest version and more information about the package.
@@ -28,25 +35,75 @@ You can install Fawern using pip:
 pip install fawern
 ```
 
+## Environment Setup
+
+Set up your API keys in a `.env` file or environment variables:
+
+```bash
+# For Groq (default provider)
+GROQ_API_KEY=your_groq_api_key_here
+
+# For OpenAI
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
 ## Usage
 
 ### ChatPython
 
-Generate Python code based on a prompt:
+Generate Python code based on a prompt using different AI providers:
+
+#### Using Groq (Default)
 
 ```python
 from fawern import ChatPython
 
-assistant = ChatPython()
+# Using Groq with default settings
+assistant = ChatPython(
+    provider_name="groq",
+    model="llama-3.1-70b-versatile",
+    temperature=0.7,
+    max_tokens=2000
+)
 
 prompt = "Create a snake game using Pygame in Python. The snake should move with the arrow keys, grow when it eats food, and the game should end if it collides with the walls or itself. Display the current score during gameplay and the final score when the game ends."
 
-code = assistant.generate_code(prompt, write_code_to_file=True, run_code=True)
+code = assistant.generate_code(
+    prompt_input=prompt, 
+    write_code_to_file=True, 
+    run_code=True,
+    cleanup_installed_module=True,
+    cleanup_generated_file=False
+)
 
 print(code)
 ```
 
-This will generate Python code for a snake game and write it to a file named related to the prompt. The code will be executed, and the output will be displayed.
+#### Using OpenAI
+
+```python
+from fawern import ChatPython
+
+# Using OpenAI
+assistant = ChatPython(
+    provider_name="openai",
+    model="gpt-4",
+    temperature=0.7,
+    max_tokens=2000
+)
+
+prompt = "Create a simple calculator with a GUI using tkinter that can perform basic arithmetic operations."
+
+code = assistant.generate_code(
+    prompt_input=prompt, 
+    write_code_to_file=True, 
+    run_code=True
+)
+
+print(code)
+```
+
+This will generate Python code and write it to a file named related to the prompt. The code will be executed, and the output will be displayed.
 
 ### CodeAnalyzer
 
@@ -55,7 +112,10 @@ Here's an example of how to use the **CodeAnalyzer** feature to analyze and refa
 ```python
 from fawern import CodeAnalyzer
 
-analyzer = CodeAnalyzer()
+analyzer = CodeAnalyzer(
+    provider_name="YOUR_AI_PROVIDER",  # groq, openai, etc.
+    model="YOUR_MODEL_NAME"
+)
 
 code = """
 def process_data(data):
@@ -103,7 +163,10 @@ Format Python code according to PEP8 standards:
 ```python
 from fawern import CodeFormatter
 
-formatter = CodeFormatter()
+formatter = CodeFormatter(
+    provider_name="YOUR_AI_PROVIDER",  # groq, openai, etc.
+    model="YOUR_MODEL_NAME"
+)
 
 code = """
 def   calculateArea(   length,  width ) :
@@ -132,7 +195,10 @@ Log and analyze Python errors, providing suggestions for fixes:
 ```python
 from fawern import ErrorLogAnalyzer
 
-error_analyzer = ErrorLogAnalyzer()
+error_analyzer = ErrorLogAnalyzer(
+    provider_name="YOUR_AI_PROVIDER",  # groq, openai, etc.
+    model="YOUR_MODEL_NAME"
+)
 
 # Log an error from a web application
 error_message = """
@@ -159,7 +225,10 @@ Review Python code and provide feedback on structure, clarity, and quality:
 ```python
 from fawern import CodeReviewer
 
-reviewer = CodeReviewer()
+reviewer = CodeReviewer(
+    provider_name="YOUR_AI_PROVIDER",  # groq, openai, etc.
+    model="YOUR_MODEL_NAME"
+)
 
 code = """
 import requests
@@ -191,7 +260,10 @@ Generate detailed docstrings and inline comments for Python code:
 ```python
 from fawern import DocumentationGenerator
 
-doc_generator = DocumentationGenerator()
+doc_generator = DocumentationGenerator(
+    provider_name="YOUR_AI_PROVIDER",  # groq, openai, etc.
+    model="YOUR_MODEL_NAME"
+)
 
 code = """
 class Calculator:
@@ -228,7 +300,10 @@ Convert code from other programming languages to Python:
 ```python
 from fawern import ConvertToPython
 
-converter = ConvertToPython()
+converter = ConvertToPython(
+    provider_name="YOUR_AI_PROVIDER",  # groq, openai, etc.
+    model="YOUR_MODEL_NAME"
+)
 
 cpp_code = """
 #include <iostream>
@@ -251,7 +326,7 @@ python_code = converter.convert_code("path/to/cpp/file.cpp")
 print("Converted Python Code:\n", python_code)
 ```
 
-This will convert the given Java code to Python code.
+This will convert the given C++ code to Python code.
 
 ### CodeVisualizer
 
@@ -260,7 +335,10 @@ Generate visual representations such as flowcharts or class diagrams for Python 
 ```python
 from fawern import CodeVisualizer
 
-visualizer = CodeVisualizer()
+visualizer = CodeVisualizer(
+    provider_name="YOUR_AI_PROVIDER",  # groq, openai, etc.
+    model="YOUR_MODEL_NAME"
+)
 
 code = """
 class Shape:
@@ -297,7 +375,7 @@ visualization = visualizer.visualize_code("path/to/python/file.py")
 print("Class Diagram:\n", visualization)
 ```
 
-This will generate a class diagram for
+This will generate a class diagram for the given Python code.
 
 ### BugFixer
 
@@ -306,7 +384,10 @@ Automatically identify and fix bugs in Python code:
 ```python
 from fawern import BugFixer
 
-bug_fixer = BugFixer()
+bug_fixer = BugFixer(
+    provider_name="YOUR_AI_PROVIDER",  # groq, openai, etc.
+    model="YOUR_MODEL_NAME"
+)
 
 code = """
 def divide_numbers(a, b):
@@ -333,7 +414,10 @@ Generate unit tests for Python code to ensure correctness:
 ```python
 from fawern import UnitTestGenerator
 
-test_generator = UnitTestGenerator()
+test_generator = UnitTestGenerator(
+    provider_name="YOUR_AI_PROVIDER",  # groq, openai, etc.
+    model="YOUR_MODEL_NAME"
+)
 
 code = """
 def multiply(a, b):
